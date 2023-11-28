@@ -40,7 +40,8 @@ add_action('acf/init', function () {
 });
 
 // Start application
-new WebhooksManager\Plugin();
+$plugin = new WebhooksManager\Plugin();
+$plugin->initialize();
 
 add_action('plugins_loaded', function () {
     load_plugin_textdomain('webhooks-manager', false, dirname(plugin_basename(__FILE__)) . '/languages');
