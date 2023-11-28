@@ -34,7 +34,9 @@ add_action('acf/init', function () {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
     $acfExportManager->setTextdomain('webhooks-manager');
     $acfExportManager->setExportFolder(WEBHOOKS_MANAGER_PATH . 'source/php/AcfFields/');
-    $acfExportManager->autoExport(array());
+    $acfExportManager->autoExport(array(
+        'webhooks' => 'group_6565af01867da',
+    ));
 
     $acfExportManager->import();
 });

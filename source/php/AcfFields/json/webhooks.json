@@ -1,0 +1,170 @@
+[{
+    "key": "group_6565af01867da",
+    "title": "Webhooks",
+    "fields": [
+        {
+            "key": "field_6565af01d3812",
+            "label": "Webhooks",
+            "name": "webhooks",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "L\u00e4gg till rad",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6565af98e3ba4",
+                    "label": "Payload URL",
+                    "name": "payload_url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "Target url used for the request made when the selected hook is fired.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_6565af01d3812"
+                },
+                {
+                    "key": "field_6565afd8e3ba5",
+                    "label": "HTTP Method",
+                    "name": "http_method",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "HTTP method used when making the request to the given payload url.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "POST": "POST",
+                        "GET": "GET"
+                    },
+                    "default_value": "POST",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_6565af01d3812"
+                },
+                {
+                    "key": "field_6565b01fe3ba6",
+                    "label": "Action",
+                    "name": "action",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "WordPress hook that determines when to fire the webhook.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "deleted_post": "deleted_post",
+                        "post_updated": "post_updated",
+                        "save_post": "save_post"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_6565af01d3812"
+                },
+                {
+                    "key": "field_6565b15fe3ba7",
+                    "label": "Payload",
+                    "name": "payload",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Wether to send the data passed to the selected action hook in the request to the payload ur or not.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "34",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "ALL": "All",
+                        "EMPTY": "Empty"
+                    },
+                    "default_value": "ALL",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_6565af01d3812"
+                },
+                {
+                    "key": "field_6565b1c6e3ba8",
+                    "label": "Status",
+                    "name": "status",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui_on_text": "Active",
+                    "ui_off_text": "Inactive",
+                    "ui": 1,
+                    "parent_repeater": "field_6565af01d3812"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "webhooks-manager"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}]
+
