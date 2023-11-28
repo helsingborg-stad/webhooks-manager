@@ -1,0 +1,20 @@
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.github
+
+/.devcontainer export-ignore
+/.vscode export-ignore
+/GitVersion.yml export-ignore
+
+/bin export-ignore
+
+*Test.php export-ignore
+/tests export-ignore
+/coverage
+/.phpunit.cache export-ignore
+/.phpunit.result.cache export-ignore
+
+/cghooks.lock export-ignore
+
+/phpcs.xml 
+/phpunit.xml 
