@@ -1,6 +1,9 @@
 <?php
 
-namespace WebhooksManager;
+namespace WebhooksManager\WebhookActionBinder;
+
+use WebhooksManager\Webhook\WebhookInterface;
+use WebhooksManager\WebhookDispatcher\WebhookDispatcherInterface;
 
 class WebhookActionBinder implements WebhookActionBinderInterface
 {

@@ -4,7 +4,7 @@ namespace WebhooksManager\AcfFields\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use WebhooksManager\AcfFields\FieldOptionsModifier;
-use WebhooksManager\OptionsInterface;
+use WebhooksManager\Options\OptionsInterface;
 use WP_Mock\Tools\TestCase;
 
 class FieldsModifierTest extends TestCase

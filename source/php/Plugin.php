@@ -2,13 +2,19 @@
 
 namespace WebhooksManager;
 
+use WebhooksManager\AcfFields\FieldOptionsModifier;
+use WebhooksManager\WebhookActionBinder\WebhookActionBinder;
+use WebhooksManager\WebhookDispatcher\WebhookDispatcher;
+use WebhooksManager\Options\Options;
+use WebhooksManager\WebhooksRegistry\WebhooksRegistry;
+
 class Plugin
 {
     public function initialize()
     {
         $options                 = new Options();
         $settingsPage            = new SettingsPage();
-        $acfFieldOptionsModifier = new AcfFields\FieldOptionsModifier($options);
+        $acfFieldOptionsModifier = new FieldOptionsModifier($options);
         $webhooksRegistry        = new WebhooksRegistry();
 
         add_action('init', [$settingsPage, 'addPage']);
@@ -18,7 +24,8 @@ class Plugin
 
         add_action('plugins_loaded', function () use ($webhooksRegistry) {
             foreach ($webhooksRegistry->getWebhooks() as $webhook) {
-                $webhookActionBinder = new WebhookActionBinder($webhook, new WebhookDispatcher());
+                $dispatcher          = new WebhookDispatcher();
+                $webhookActionBinder = new WebhookActionBinder($webhook, $dispatcher);
                 $webhookActionBinder->bindWebhookToAction();
             }
         }, 20);

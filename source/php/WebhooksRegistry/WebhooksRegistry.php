@@ -1,11 +1,11 @@
 <?php
 
-namespace WebhooksManager;
+namespace WebhooksManager\WebhooksRegistry;
 
 class WebhooksRegistry implements WebhooksRegistryInterface
 {
     /**
-     * @var WebhookInterface[]
+     * @var \WebhooksManager\Webhook\WebhookInterface[]
      */
     private array $webhooks       = [];
     private array $webhooksOption = [];
@@ -22,7 +22,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     {
         foreach ($this->webhooksOption as $webhookOption) {
             if ($this->isValidWebhookOption($webhookOption)) {
-                $this->webhooks[] = new Webhook(
+                $this->webhooks[] = new \WebhooksManager\Webhook\Webhook(
                     $webhookOption['payload_url'],
                     $webhookOption['http_method'],
                     $webhookOption['action'],
@@ -45,7 +45,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     }
 
     /**
-     * @return WebhookInterface[]
+     * @return \WebhooksManager\Webhook\WebhookInterface[]
      */
     public function getWebhooks(): array
     {

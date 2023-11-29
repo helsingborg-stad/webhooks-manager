@@ -1,11 +1,11 @@
 <?php
 
-namespace WebhooksManager\Test;
+namespace WebhooksManager\WebhookActionBinder\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use WebhooksManager\WebhookActionBinder;
-use WebhooksManager\WebhookDispatcherInterface;
-use WebhooksManager\WebhookInterface;
+use WebhooksManager\Webhook\WebhookInterface;
+use WebhooksManager\WebhookActionBinder\WebhookActionBinder;
+use WebhooksManager\WebhookDispatcher\WebhookDispatcherInterface;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 

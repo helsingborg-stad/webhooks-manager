@@ -1,6 +1,6 @@
 <?php
 
-namespace WebhooksManager;
+namespace WebhooksManager\Webhook;
 
 class Webhook implements WebhookInterface
 {

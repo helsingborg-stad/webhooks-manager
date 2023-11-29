@@ -1,6 +1,6 @@
 <?php
 
-namespace WebhooksManager;
+namespace WebhooksManager\WebhookActionBinder;
 
 interface WebhookActionBinderInterface
 {

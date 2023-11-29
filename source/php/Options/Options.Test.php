@@ -1,8 +1,8 @@
 <?php
 
-namespace WebhooksManager\Test;
+namespace WebhooksManager\Options\Test;
 
-use WebhooksManager\Options;
+use WebhooksManager\Options\Options;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 

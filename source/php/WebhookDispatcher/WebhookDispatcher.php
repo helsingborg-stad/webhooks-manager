@@ -1,6 +1,8 @@
 <?php
 
-namespace WebhooksManager;
+namespace WebhooksManager\WebhookDispatcher;
+
+use WebhooksManager\Webhook\WebhookInterface;
 
 class WebhookDispatcher implements WebhookDispatcherInterface
 {

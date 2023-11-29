@@ -1,10 +1,10 @@
 <?php
 
-namespace WebhookDispatcher\Test;
+namespace WebhooksManager\WebhookDispatcher\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
-use WebhooksManager\WebhookDispatcher;
-use WebhooksManager\WebhookInterface;
+use WebhooksManager\Webhook\WebhookInterface;
+use WebhooksManager\WebhookDispatcher\WebhookDispatcher;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 

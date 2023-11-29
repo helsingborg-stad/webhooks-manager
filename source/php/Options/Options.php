@@ -1,6 +1,6 @@
 <?php
 
-namespace WebhooksManager;
+namespace WebhooksManager\Options;
 
 class Options implements OptionsInterface
 {

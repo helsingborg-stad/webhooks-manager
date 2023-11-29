@@ -2,7 +2,7 @@
 
 namespace WebhooksManager\AcfFields;
 
-use WebhooksManager\OptionsInterface;
+use WebhooksManager\Options\OptionsInterface;
 
 class FieldOptionsModifier
 {
