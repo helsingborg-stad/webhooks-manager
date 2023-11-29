@@ -10,6 +10,15 @@ namespace WebhooksManager\Options;
 class Options implements OptionsInterface
 {
     /**
+     * The default webhook actions.
+     */
+    public const DEFAULT_ACTIONS = [
+        'post_updated',
+        'post_created',
+        'post_deleted',
+    ];
+
+    /**
      * An array of HTTP methods supported by the plugin.
      *
      * @return array The supported HTTP methods.
