@@ -6,6 +6,8 @@
     <exclude-pattern type="relative">AcfFields/*</exclude-pattern>
     
     <rule ref="PSR12"/>
+    <rule ref="WordPress.Security"/>
+    
     <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
     <rule ref="WordPress.Arrays.MultipleStatementAlignment"/>
     
