@@ -5,14 +5,28 @@ namespace WebhooksManager\WebhookActionBinder;
 use WebhooksManager\Webhook\WebhookInterface;
 use WebhooksManager\WebhookDispatcher\WebhookDispatcherInterface;
 
+/**
+ * Class WebhookActionBinder
+ *
+ * Binds a webhook to an action in WordPress.
+ */
 class WebhookActionBinder implements WebhookActionBinderInterface
 {
+    /**
+     * WebhookActionBinder constructor.
+     *
+     * @param WebhookInterface $webhook
+     * @param WebhookDispatcherInterface $webhookDispatcher
+     */
     public function __construct(
         private WebhookInterface $webhook,
         private WebhookDispatcherInterface $webhookDispatcher
     ) {
     }
 
+    /**
+     * Binds the webhook to the specified action in WordPress.
+     */
     public function bindWebhookToAction(): void
     {
         $action       = $this->webhook->getAction();
@@ -22,6 +36,10 @@ class WebhookActionBinder implements WebhookActionBinderInterface
         add_action($action, $callback, $priority, $acceptedArgs);
     }
 
+    /**
+     * Callback function for the action.
+     * Dispatches the webhook if it is active.
+     */
     public function actionCallback(): void
     {
         if (!$this->webhook->isActive()) {

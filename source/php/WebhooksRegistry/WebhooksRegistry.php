@@ -2,14 +2,25 @@
 
 namespace WebhooksManager\WebhooksRegistry;
 
+/**
+ * Class WebhooksRegistry
+ *
+ * This class represents a registry for managing webhooks.
+ */
 class WebhooksRegistry implements WebhooksRegistryInterface
 {
     /**
      * @var \WebhooksManager\Webhook\WebhookInterface[]
      */
-    private array $webhooks       = [];
+    private array $webhooks = [];
+    /**
+     * @var array
+     */
     private array $webhooksOption = [];
 
+    /**
+     * Registers webhooks based on the options retrieved from the database.
+     */
     public function registerWebhooks(): void
     {
         $this->webhooksOption = get_field('webhooks', 'option');
@@ -18,6 +29,9 @@ class WebhooksRegistry implements WebhooksRegistryInterface
         }
     }
 
+    /**
+     * Registers webhooks from the options array.
+     */
     private function registerWebhooksFromOptions(): void
     {
         foreach ($this->webhooksOption as $webhookOption) {
@@ -34,6 +48,12 @@ class WebhooksRegistry implements WebhooksRegistryInterface
         }
     }
 
+    /**
+     * Checks if a webhook option is valid.
+     *
+     * @param mixed $webhookOption The webhook option to validate.
+     * @return bool True if the webhook option is valid, false otherwise.
+     */
     private function isValidWebhookOption($webhookOption): bool
     {
         return isset($webhookOption['payload_url'])
@@ -45,7 +65,9 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     }
 
     /**
-     * @return \WebhooksManager\Webhook\WebhookInterface[]
+     * Returns the registered webhooks.
+     *
+     * @return \WebhooksManager\Webhook\WebhookInterface[] The registered webhooks.
      */
     public function getWebhooks(): array
     {
