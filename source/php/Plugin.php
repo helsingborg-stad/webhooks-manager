@@ -6,7 +6,21 @@ class Plugin
 {
     public function initialize()
     {
-        $admin = new Admin();
-        $admin->addHooks();
+        $options                 = new Options();
+        $settingsPage            = new SettingsPage();
+        $acfFieldOptionsModifier = new AcfFields\FieldOptionsModifier($options);
+        $webhooksRegistry        = new WebhooksRegistry();
+
+        add_action('init', [$settingsPage, 'addPage']);
+        add_action('plugins_loaded', [$webhooksRegistry, 'registerWebhooks'], 10);
+        add_filter('acf/load_field/name=action', [$acfFieldOptionsModifier, 'getActionFieldOptions']);
+        add_filter('acf/load_field/name=http_method', [$acfFieldOptionsModifier, 'getHttpMethodFieldOptions']);
+
+        add_action('plugins_loaded', function () use ($webhooksRegistry) {
+            foreach ($webhooksRegistry->getWebhooks() as $webhook) {
+                $webhookActionBinder = new WebhookActionBinder($webhook, new WebhookDispatcher());
+                $webhookActionBinder->bindWebhookToAction();
+            }
+        }, 20);
     }
 }

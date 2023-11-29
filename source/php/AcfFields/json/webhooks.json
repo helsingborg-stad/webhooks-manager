@@ -34,7 +34,7 @@
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "75",
                         "class": "",
                         "id": ""
                     },
@@ -52,14 +52,11 @@
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "33",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
-                    "choices": {
-                        "POST": "POST",
-                        "GET": "GET"
-                    },
+                    "choices": [],
                     "default_value": "POST",
                     "return_format": "value",
                     "multiple": 0,
@@ -79,15 +76,11 @@
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "33",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
-                    "choices": {
-                        "deleted_post": "deleted_post",
-                        "post_updated": "post_updated",
-                        "save_post": "save_post"
-                    },
+                    "choices": [],
                     "default_value": false,
                     "return_format": "value",
                     "multiple": 0,
@@ -98,43 +91,60 @@
                     "parent_repeater": "field_6565af01d3812"
                 },
                 {
-                    "key": "field_6565b15fe3ba7",
-                    "label": "Payload",
-                    "name": "payload",
+                    "key": "field_6566fe78ee13f",
+                    "label": "Action Priority",
+                    "name": "action_prority",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "number",
+                    "instructions": "Priority passed to add_action for the selected action hook.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 10,
+                    "min": 0,
+                    "max": "",
+                    "placeholder": "",
+                    "step": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6565af01d3812"
+                },
+                {
+                    "key": "field_6565b15fe3ba7",
+                    "label": "Send payload",
+                    "name": "should_send_payload",
+                    "aria-label": "",
+                    "type": "true_false",
                     "instructions": "Wether to send the data passed to the selected action hook in the request to the payload ur or not.",
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "34",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
-                    "choices": {
-                        "ALL": "All",
-                        "EMPTY": "Empty"
-                    },
-                    "default_value": "ALL",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 1,
-                    "ajax": 0,
-                    "placeholder": "",
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
                     "parent_repeater": "field_6565af01d3812"
                 },
                 {
                     "key": "field_6565b1c6e3ba8",
                     "label": "Status",
-                    "name": "status",
+                    "name": "is_active",
                     "aria-label": "",
                     "type": "true_false",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "25",
                         "class": "",
                         "id": ""
                     },
