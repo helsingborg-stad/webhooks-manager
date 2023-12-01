@@ -35,6 +35,8 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     private function registerWebhooksFromOptions(): void
     {
         foreach ($this->webhooksOption as $webhookOption) {
+            $headers = array_map(fn($row) => $row['header'], $webhookOption['headers']);
+
             if ($this->isValidWebhookOption($webhookOption)) {
                 $this->webhooks[] = new \WebhooksManager\Webhook\Webhook(
                     $webhookOption['payload_url'],
@@ -43,7 +45,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
                     $webhookOption['action_priority'],
                     $webhookOption['should_send_payload'],
                     $webhookOption['is_active'],
-                    $webhookOption['headers']
+                    $headers
                 );
             }
         }
@@ -62,7 +64,8 @@ class WebhooksRegistry implements WebhooksRegistryInterface
             && isset($webhookOption['action'])
             && isset($webhookOption['action_priority'])
             && isset($webhookOption['should_send_payload'])
-            && isset($webhookOption['is_active']);
+            && isset($webhookOption['is_active'])
+            && isset($webhookOption['headers']);
     }
 
     /**
