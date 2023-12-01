@@ -2,6 +2,7 @@
 
 namespace WebhooksManager\WebhookDispatcher;
 
+use WebhooksManager\UrlDecorator\UrlDecoratorInterface;
 use WebhooksManager\Webhook\WebhookInterface;
 
 /**
@@ -11,6 +12,10 @@ use WebhooksManager\Webhook\WebhookInterface;
  */
 class WebhookDispatcher implements WebhookDispatcherInterface
 {
+    public function __construct(private UrlDecoratorInterface $urlDecorator)
+    {
+    }
+
     /**
      * Dispatches the given webhook by sending an HTTP request.
      *
@@ -20,12 +25,13 @@ class WebhookDispatcher implements WebhookDispatcherInterface
      */
     public function dispatch(WebhookInterface $webhook, $hookArguments): void
     {
-        $payload = $webhook->shouldSendPayload() ? $hookArguments : null;
+        $payload    = $webhook->shouldSendPayload() ? $hookArguments : null;
+        $payloadUrl = $this->urlDecorator->decorateUrlWith($webhook->getPayloadUrl(), $hookArguments);
 
         if ($webhook->getHttpMethod() === 'GET') {
-            $this->dispatchGetRequest($webhook->getPayloadUrl(), $payload);
+            $this->dispatchGetRequest($payloadUrl, $payload);
         } else {
-            $this->dispatchPostRequest($webhook->getPayloadUrl(), $payload);
+            $this->dispatchPostRequest($payloadUrl, $payload);
         }
     }
 
@@ -54,7 +60,8 @@ class WebhookDispatcher implements WebhookDispatcherInterface
      */
     private function dispatchPostRequest(string $url, $payload)
     {
-        $arguments = [ 'body' => json_encode($payload), 'data_format' => 'body', 'blocking' => false ];
+        $bodyArguments = is_array($payload) ? ['body' => json_encode($payload)] : [];
+        $arguments     = [ 'data_format' => 'body', 'blocking' => false, ...$bodyArguments ];
         wp_remote_post($url, $arguments);
     }
 }
