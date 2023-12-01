@@ -27,7 +27,7 @@ class Webhook implements WebhookInterface
         private bool $isActive,
         private ?array $headers = null
     ) {
-        $this->headers = $this->filterHeaders($headers);
+        $this->headers = $this->setHeaders($headers);
     }
 
     /**
@@ -101,20 +101,28 @@ class Webhook implements WebhookInterface
     }
 
     /**
-     * Filter the headers array to only accept strings and numbers.
+     * Set the headers for the webhook.
      *
-     * @param array|null $headers The headers array.
-     *
-     * @return array The filtered headers array.
+     * @param array|null $headers The headers to set for the webhook.
+     * @return array The updated headers array.
      */
-    private function filterHeaders(?array $headers): array
+    private function setHeaders(?array $headers): array
     {
         if (!is_array($headers)) {
             return [];
         }
 
-        return array_filter($headers, function ($value) {
-            return is_string($value) || is_numeric($value);
+        $validHeaders = array_filter($headers, function ($value) {
+            return is_string($value) && str_contains($value, ':');
         });
+
+        $headerKeyValuePairs = array_map(function ($value) {
+            [$key, $headerValue] = explode(':', $value, 2);
+            return [trim($key) => trim($headerValue)];
+        }, $validHeaders);
+
+        $mergedHeaders = array_merge(...$headerKeyValuePairs);
+
+        return array_map('trim', $mergedHeaders);
     }
 }

@@ -10,24 +10,24 @@ class WebhookTest extends \PHPUnit\Framework\TestCase
         $this->assertIsArray($webhook->getHeaders());
     }
 
-    public function testHeadersOnlyAcceptsArrayOfStringsAndNumbers()
+    public function testHeadersOnlyAcceptsValidHeaderStrings()
     {
-        $headers = [
-            'acceptedHeaderOne'      => 'value',
-            'acceptedHeaderTwo'      => 123,
-            'notAcceptedHeaderOne'   => ['value'],
-            'notAcceptedHeaderTwo'   => true,
-            'notAcceptedHeaderThree' => null,
-            'notAcceptedHeaderFour'  => new \stdClass(),
-        ];
+        $headers = [123, 'Authorization: value', ['value'], true, null, new \stdClass()];
 
         $webhook = new Webhook('https://example.com', 'POST', 'test', 1, true, true, $headers);
 
-        $this->assertArrayHasKey('acceptedHeaderOne', $webhook->getHeaders());
-        $this->assertArrayHasKey('acceptedHeaderTwo', $webhook->getHeaders());
-        $this->assertArrayNotHasKey('notAcceptedHeaderOne', $webhook->getHeaders());
-        $this->assertArrayNotHasKey('notAcceptedHeaderTwo', $webhook->getHeaders());
-        $this->assertArrayNotHasKey('notAcceptedHeaderThree', $webhook->getHeaders());
-        $this->assertArrayNotHasKey('notAcceptedHeaderFour', $webhook->getHeaders());
+        $resultingHeaders = $webhook->getHeaders();
+
+        $this->assertIsArray($resultingHeaders);
+        $this->assertCount(1, $resultingHeaders);
+        $this->assertEquals('value', $resultingHeaders['Authorization']);
+    }
+
+    public function testHeadersArePreparedForRequest()
+    {
+        $headers = [ 'Authorization: Basic 123' ];
+        $webhook = new Webhook('https://example.com', 'POST', 'test', 1, true, true, $headers);
+
+        $this->assertEquals(['Authorization' => 'Basic 123'], $webhook->getHeaders());
     }
 }

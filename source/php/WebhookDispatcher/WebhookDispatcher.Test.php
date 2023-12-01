@@ -15,7 +15,13 @@ class WebhookDispatcherTest extends TestCase
     {
         WP_Mock::userFunction('wp_remote_get', [
             'times' => 1,
-            'args'  => ['https://example.com?foo=bar', ['blocking' => false]],
+            'args'  => [
+                'https://example.com?foo=bar',
+                [
+                    'blocking' => false,
+                    'headers'  => ['header' => 'value']
+                ]
+            ],
         ]);
 
         $urlDecoratorMock = $this->getUrlDecoratorMock();
@@ -23,6 +29,7 @@ class WebhookDispatcherTest extends TestCase
         $webhook = $this->getWebhookMock();
         $webhook->method('getHttpMethod')->willReturn('GET');
         $webhook->method('getPayloadUrl')->willReturn('https://example.com');
+        $webhook->method('getHeaders')->willReturn(['header' => 'value']);
         $webhook->method('shouldSendPayload')->willReturn(true);
 
         $webhookDispatcher = new WebhookDispatcher($urlDecoratorMock);
@@ -37,14 +44,23 @@ class WebhookDispatcherTest extends TestCase
         $body            = json_encode($actionArguments);
         WP_Mock::userFunction('wp_remote_post', [
             'times' => 1,
-            'args'  => ['https://example.com', ['blocking' => false, 'data_format' => 'body', 'body' => $body]],
-        ]);
+            'args'  => [
+                'https://example.com',
+                [
+                    'blocking'    => false,
+                    'data_format' => 'body',
+                    'body'        => $body,
+                    'headers'     => ['header' => 'value']
+                    ]
+                ],
+            ]);
 
         $urlDecoratorMock = $this->getUrlDecoratorMock();
         $urlDecoratorMock->method('decorateUrlWith')->willReturn('https://example.com');
         $webhook = $this->getWebhookMock();
         $webhook->method('getHttpMethod')->willReturn('POST');
         $webhook->method('getPayloadUrl')->willReturn('https://example.com');
+        $webhook->method('getHeaders')->willReturn(['header' => 'value']);
         $webhook->method('shouldSendPayload')->willReturn(true);
 
         $webhookDispatcher = new WebhookDispatcher($urlDecoratorMock);

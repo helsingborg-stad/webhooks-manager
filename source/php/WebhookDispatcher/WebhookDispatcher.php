@@ -25,13 +25,12 @@ class WebhookDispatcher implements WebhookDispatcherInterface
      */
     public function dispatch(WebhookInterface $webhook, $hookArguments): void
     {
-        $payload    = $webhook->shouldSendPayload() ? $hookArguments : null;
-        $payloadUrl = $this->urlDecorator->decorateUrlWith($webhook->getPayloadUrl(), $hookArguments);
+        $payload = $webhook->shouldSendPayload() ? $hookArguments : null;
 
         if ($webhook->getHttpMethod() === 'GET') {
-            $this->dispatchGetRequest($payloadUrl, $payload);
+            $this->dispatchGetRequest($webhook, $payload);
         } else {
-            $this->dispatchPostRequest($payloadUrl, $payload);
+            $this->dispatchPostRequest($webhook, $payload);
         }
     }
 
@@ -42,13 +41,18 @@ class WebhookDispatcher implements WebhookDispatcherInterface
      * @param mixed $payload The payload to be included in the request.
      * @return void
      */
-    private function dispatchGetRequest($url, $payload)
+    private function dispatchGetRequest(WebhookInterface $webhook, $payload)
     {
+        $url = $this->urlDecorator->decorateUrlWith($webhook->getPayloadUrl(), $payload);
+
         if (is_array($payload)) {
             $url .= '?' . http_build_query($payload);
         }
 
-        wp_remote_get($url, ['blocking' => false ]);
+        wp_remote_get($url, [
+            'blocking' => false,
+            'headers'  => $webhook->getHeaders()
+        ]);
     }
 
     /**
@@ -58,10 +62,16 @@ class WebhookDispatcher implements WebhookDispatcherInterface
      * @param mixed $payload The payload to be included in the request.
      * @return void
      */
-    private function dispatchPostRequest(string $url, $payload)
+    private function dispatchPostRequest(WebhookInterface $webhook, $payload)
     {
+        $url           = $this->urlDecorator->decorateUrlWith($webhook->getPayloadUrl(), $payload);
         $bodyArguments = is_array($payload) ? ['body' => json_encode($payload)] : [];
-        $arguments     = [ 'data_format' => 'body', 'blocking' => false, ...$bodyArguments ];
-        wp_remote_post($url, $arguments);
+
+        wp_remote_post($url, [
+            'data_format' => 'body',
+            'blocking'    => false,
+            'headers'     => $webhook->getHeaders(),
+            ...$bodyArguments
+        ]);
     }
 }
