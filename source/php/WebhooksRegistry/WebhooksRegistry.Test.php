@@ -17,7 +17,7 @@ class WebhooksRegistryTest extends TestCase
                 'action_priority'     => 10,
                 'should_send_payload' => true,
                 'is_active'           => true,
-                'headers'             => ['Content-Type: application/json']
+                'headers'             => [['header' => 'Content-Type: application/json']]
             ]
         ]);
 
