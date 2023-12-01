@@ -154,6 +154,52 @@
                     "ui_off_text": "Inactive",
                     "ui": 1,
                     "parent_repeater": "field_6565af01d3812"
+                },
+                {
+                    "key": "field_656a07002cb0c",
+                    "label": "Headers",
+                    "name": "headers",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Description: This field allows you to define multiple HTTP headers for your requests. Each row represents a single header, and you should enter both the header name and its corresponding value in the same row. Use the \"Add Row\" button to create additional headers as needed. For example, to include an \"Authorization: Basic 123\" header, add a row with \"Authorization: Basic 123\" in the field.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "L\u00e4gg till rad",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_656a07472cb0d",
+                            "label": "Header",
+                            "name": "header",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_656a07002cb0c"
+                        }
+                    ],
+                    "parent_repeater": "field_6565af01d3812"
                 }
             ]
         }

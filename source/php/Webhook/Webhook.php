@@ -24,8 +24,10 @@ class Webhook implements WebhookInterface
         private string $action,
         private int $actionPriority,
         private bool $shouldSendPayload,
-        private bool $isActive
+        private bool $isActive,
+        private ?array $headers = null
     ) {
+        $this->headers = $this->setHeaders($headers);
     }
 
     /**
@@ -86,5 +88,41 @@ class Webhook implements WebhookInterface
     public function isActive(): bool
     {
         return $this->isActive;
+    }
+
+    /**
+     * Get the headers of the webhook.
+     *
+     * @return array The headers.
+     */
+    public function getHeaders(): array
+    {
+        return is_array($this->headers) ? $this->headers : [];
+    }
+
+    /**
+     * Set the headers for the webhook.
+     *
+     * @param array|null $headers The headers to set for the webhook.
+     * @return array The updated headers array.
+     */
+    private function setHeaders(?array $headers): array
+    {
+        if (!is_array($headers)) {
+            return [];
+        }
+
+        $validHeaders = array_filter($headers, function ($value) {
+            return is_string($value) && str_contains($value, ':');
+        });
+
+        $headerKeyValuePairs = array_map(function ($value) {
+            [$key, $headerValue] = explode(':', $value, 2);
+            return [trim($key) => trim($headerValue)];
+        }, $validHeaders);
+
+        $mergedHeaders = array_merge(...$headerKeyValuePairs);
+
+        return array_map('trim', $mergedHeaders);
     }
 }
