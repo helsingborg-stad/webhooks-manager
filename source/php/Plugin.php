@@ -6,6 +6,7 @@ use WebhooksManager\AcfFields\FieldOptionsModifier;
 use WebhooksManager\WebhookActionBinder\WebhookActionBinder;
 use WebhooksManager\WebhookDispatcher\WebhookDispatcher;
 use WebhooksManager\Options\Options;
+use WebhooksManager\UrlDecorator\UrlDecorator;
 use WebhooksManager\WebhooksRegistry\WebhooksRegistry;
 
 /**
@@ -39,7 +40,8 @@ class Plugin
         // Bind webhooks to actions on plugins loaded
         add_action('plugins_loaded', function () use ($webhooksRegistry) {
             foreach ($webhooksRegistry->getWebhooks() as $webhook) {
-                $dispatcher          = new WebhookDispatcher();
+                $urlDecorator        = new UrlDecorator();
+                $dispatcher          = new WebhookDispatcher($urlDecorator);
                 $webhookActionBinder = new WebhookActionBinder($webhook, $dispatcher);
                 $webhookActionBinder->bindWebhookToAction();
             }

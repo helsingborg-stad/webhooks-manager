@@ -33,7 +33,8 @@
                     'name' => 'payload_url',
                     'aria-label' => '',
                     'type' => 'url',
-                    'instructions' => __('Target url used for the request made when the selected hook is fired.', 'webhooks-manager'),
+                    'instructions' => __('Target url used for the request made when the selected hook is fired. The url can contain placeholders that will be replaced with hook arguments before request is sent. Placeholder format is the "$" character followed by the index of the hooks parameter. E.g. to use the first parameter in the hook, the placeholder should be "$1".
+Note that only hook arguments of type string or int can be used by placeholders, all other will be omitted.', 'webhooks-manager'),
                     'required' => 1,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -42,7 +43,7 @@
                         'id' => '',
                     ),
                     'default_value' => '',
-                    'placeholder' => '',
+                    'placeholder' => __('https://my.client.site/api/$1', 'webhooks-manager'),
                     'parent_repeater' => 'field_6565af01d3812',
                 ),
                 1 => array(
@@ -98,7 +99,7 @@
                 3 => array(
                     'key' => 'field_6566fe78ee13f',
                     'label' => __('Action Priority', 'webhooks-manager'),
-                    'name' => 'action_prority',
+                    'name' => 'action_priority',
                     'aria-label' => '',
                     'type' => 'number',
                     'instructions' => __('Priority passed to add_action for the selected action hook.', 'webhooks-manager'),
@@ -125,7 +126,7 @@
                     'aria-label' => '',
                     'type' => 'true_false',
                     'instructions' => __('Wether to send the data passed to the selected action hook in the request to the payload ur or not.', 'webhooks-manager'),
-                    'required' => 1,
+                    'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
                         'width' => '25',

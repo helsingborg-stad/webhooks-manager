@@ -3,6 +3,7 @@
 namespace WebhooksManager\WebhookDispatcher\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use WebhooksManager\UrlDecorator\UrlDecoratorInterface;
 use WebhooksManager\Webhook\WebhookInterface;
 use WebhooksManager\WebhookDispatcher\WebhookDispatcher;
 use WP_Mock;
@@ -17,12 +18,14 @@ class WebhookDispatcherTest extends TestCase
             'args'  => ['https://example.com?foo=bar', ['blocking' => false]],
         ]);
 
+        $urlDecoratorMock = $this->getUrlDecoratorMock();
+        $urlDecoratorMock->method('decorateUrlWith')->willReturn('https://example.com');
         $webhook = $this->getWebhookMock();
         $webhook->method('getHttpMethod')->willReturn('GET');
         $webhook->method('getPayloadUrl')->willReturn('https://example.com');
         $webhook->method('shouldSendPayload')->willReturn(true);
 
-        $webhookDispatcher = new WebhookDispatcher();
+        $webhookDispatcher = new WebhookDispatcher($urlDecoratorMock);
         $webhookDispatcher->dispatch($webhook, ['foo' => 'bar']);
 
         $this->assertConditionsMet();
@@ -37,12 +40,14 @@ class WebhookDispatcherTest extends TestCase
             'args'  => ['https://example.com', ['blocking' => false, 'data_format' => 'body', 'body' => $body]],
         ]);
 
+        $urlDecoratorMock = $this->getUrlDecoratorMock();
+        $urlDecoratorMock->method('decorateUrlWith')->willReturn('https://example.com');
         $webhook = $this->getWebhookMock();
         $webhook->method('getHttpMethod')->willReturn('POST');
         $webhook->method('getPayloadUrl')->willReturn('https://example.com');
         $webhook->method('shouldSendPayload')->willReturn(true);
 
-        $webhookDispatcher = new WebhookDispatcher();
+        $webhookDispatcher = new WebhookDispatcher($urlDecoratorMock);
         $webhookDispatcher->dispatch($webhook, $actionArguments);
 
         $this->assertConditionsMet();
@@ -51,5 +56,10 @@ class WebhookDispatcherTest extends TestCase
     private function getWebhookMock(): MockObject|WebhookInterface
     {
         return $this->createMock(WebhookInterface::class);
+    }
+
+    private function getUrlDecoratorMock(): MockObject|UrlDecoratorInterface
+    {
+        return $this->createMock(UrlDecoratorInterface::class);
     }
 }
