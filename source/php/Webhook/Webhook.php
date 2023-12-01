@@ -24,8 +24,10 @@ class Webhook implements WebhookInterface
         private string $action,
         private int $actionPriority,
         private bool $shouldSendPayload,
-        private bool $isActive
+        private bool $isActive,
+        private ?array $headers = null
     ) {
+        $this->headers = $this->filterHeaders($headers);
     }
 
     /**
@@ -86,5 +88,33 @@ class Webhook implements WebhookInterface
     public function isActive(): bool
     {
         return $this->isActive;
+    }
+
+    /**
+     * Get the headers of the webhook.
+     *
+     * @return array The headers.
+     */
+    public function getHeaders(): array
+    {
+        return is_array($this->headers) ? $this->headers : [];
+    }
+
+    /**
+     * Filter the headers array to only accept strings and numbers.
+     *
+     * @param array|null $headers The headers array.
+     *
+     * @return array The filtered headers array.
+     */
+    private function filterHeaders(?array $headers): array
+    {
+        if (!is_array($headers)) {
+            return [];
+        }
+
+        return array_filter($headers, function ($value) {
+            return is_string($value) || is_numeric($value);
+        });
     }
 }

@@ -48,4 +48,11 @@ interface WebhookInterface
      * @return bool True if the webhook is active, false otherwise.
      */
     public function isActive(): bool;
+
+    /**
+     * Get the headers for the webhook.
+     *
+     * @return array The headers.
+     */
+    public function getHeaders(): array;
 }
