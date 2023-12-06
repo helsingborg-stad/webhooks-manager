@@ -23,7 +23,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
      */
     public function registerWebhooks(): void
     {
-        $this->webhooksOption = get_field('webhooks', 'option');
+        $this->webhooksOption = get_field('webhooks', 'option') ?? [];
         if (!empty($this->webhooksOption)) {
             $this->registerWebhooksFromOptions();
         }

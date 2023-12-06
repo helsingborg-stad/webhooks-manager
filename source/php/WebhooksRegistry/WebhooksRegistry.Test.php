@@ -37,4 +37,16 @@ class WebhooksRegistryTest extends TestCase
         $this->assertTrue($webhook->isActive());
         $this->assertEquals(['Content-Type' => 'application/json'], $webhook->getHeaders());
     }
+
+    public function testThatNoExceptionIsThrownWhenNoOptionsAreFound()
+    {
+        WP_Mock::userFunction('get_field')->andReturn(null);
+
+        $webhooksRegistry = new \WebhooksManager\WebhooksRegistry\WebhooksRegistry();
+        $webhooksRegistry->registerWebhooks();
+
+        $webhooks = $webhooksRegistry->getWebhooks();
+        $this->assertIsArray($webhooks);
+        $this->assertCount(0, $webhooks);
+    }
 }
