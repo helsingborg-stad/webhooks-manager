@@ -161,7 +161,7 @@
                     "name": "headers",
                     "aria-label": "",
                     "type": "repeater",
-                    "instructions": "Description: This field allows you to define multiple HTTP headers for your requests. Each row represents a single header, and you should enter both the header name and its corresponding value in the same row. Use the \"Add Row\" button to create additional headers as needed. For example, to include an \"Authorization: Basic 123\" header, add a row with \"Authorization: Basic 123\" in the field.",
+                    "instructions": "This field allows you to define multiple HTTP headers for your requests. Each row represents a single header, and you should enter both the header name and its corresponding value in the same row. Use the \"Add Row\" button to create additional headers as needed. For example, to include an \"Authorization: Basic 123\" header, add a row with \"Authorization: Basic 123\" in the field.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -170,7 +170,6 @@
                         "id": ""
                     },
                     "layout": "table",
-                    "pagination": 0,
                     "min": 0,
                     "max": 0,
                     "collapsed": "",

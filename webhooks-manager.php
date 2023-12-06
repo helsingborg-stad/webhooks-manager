@@ -41,10 +41,10 @@ add_action('acf/init', function () {
     $acfExportManager->import();
 });
 
-// Start application
-$plugin = new WebhooksManager\Plugin();
-$plugin->initialize();
-
 add_action('plugins_loaded', function () {
     load_plugin_textdomain('webhooks-manager', false, dirname(plugin_basename(__FILE__)) . '/languages');
 });
+
+// Start application
+$plugin = new WebhooksManager\Plugin();
+$plugin->initialize();

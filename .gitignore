@@ -68,3 +68,8 @@ wp-content
 
 # .vscode settings
 !.vscode
+
+# Translation backup files
+*.po~
+*.mo~
+*.pot~
