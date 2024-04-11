@@ -4,7 +4,7 @@
  * Plugin Name:       Webhooks Manager
  * Plugin URI:        https://github.com/helsingborg-stad/webhooks-manager
  * Description:       Create and manage webhooks from WordPress action hooks
- * Version: 1.2.2
+ * Version: 1.3.0
  * Author:            Thor Brink @ Helsingborg Stad
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
