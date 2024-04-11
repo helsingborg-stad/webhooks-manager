@@ -35,8 +35,8 @@ class FieldOptionsModifier
             return $field;
         }
 
-        foreach ($this->options->getActions() as $value) {
-            $field['choices'][$value] = $value;
+        foreach ($this->options->getActions() as $key => $value) {
+            $field['choices'][$key] = $value;
         }
 
         return $field;
