@@ -36,6 +36,10 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     {
         foreach ($this->webhooksOption as $webhookOption) {
             if ($this->isValidWebhookOption($webhookOption)) {
+
+                if(empty($webhookOption['headers'])) {
+                    $webhookOption['headers'] = [];
+                }
                 $headers = array_map(fn($row) => $row['header'], $webhookOption['headers']);
 
                 $this->webhooks[] = new \WebhooksManager\Webhook\Webhook(
@@ -65,8 +69,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
             && isset($webhookOption['action_priority'])
             && isset($webhookOption['should_send_payload'])
             && isset($webhookOption['is_active'])
-            && isset($webhookOption['headers'])
-            && is_array($webhookOption['headers']);
+            && isset($webhookOption['headers']);
     }
 
     /**
