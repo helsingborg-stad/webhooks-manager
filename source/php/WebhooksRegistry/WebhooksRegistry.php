@@ -35,9 +35,13 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     private function registerWebhooksFromOptions(): void
     {
         foreach ($this->webhooksOption as $webhookOption) {
-            $headers = array_map(fn($row) => $row['header'], $webhookOption['headers']);
-
             if ($this->isValidWebhookOption($webhookOption)) {
+
+                if(empty($webhookOption['headers'])) {
+                    $webhookOption['headers'] = [];
+                }
+                $headers = array_map(fn($row) => $row['header'], $webhookOption['headers']);
+
                 $this->webhooks[] = new \WebhooksManager\Webhook\Webhook(
                     $webhookOption['payload_url'],
                     $webhookOption['http_method'],
