@@ -2,6 +2,8 @@
 
 namespace WebhooksManager\Options;
 
+use stdClass;
+
 /**
  * Class Options
  *
@@ -12,7 +14,7 @@ class Options implements OptionsInterface
     /**
      * The default webhook actions.
      */
-    public const DEFAULT_ACTIONS = [
+    public const DEFAULT_POST_ACTIONS = [
         'post_updated',
         'post_created',
         'post_deleted',
@@ -45,14 +47,14 @@ class Options implements OptionsInterface
     /**
      * An array of HTTP methods supported by the plugin.
      *
-     * @return array The supported HTTP methods.
+     * @return object The supported HTTP methods.
      */
     public function getTypeLabels(): object
     {
-        return (object) [
-            'cron' => __("Cron:"),
-            'post' => __("Post:")
-        ];
+        $typeLabels = new stdClass();
+        $typeLabels->cron = __("Cron:");
+        $typeLabels->post = __("Post:");
+        return $typeLabels;
     }
 
     /**
@@ -60,10 +62,10 @@ class Options implements OptionsInterface
      *
      * @return array The available post actions.
      */
-    private function getPostActions(): array
+    public function getPostActions(): array
     {
         $avabilePostActions = []; 
-        foreach(self::DEFAULT_ACTIONS as $action) {
+        foreach(self::DEFAULT_POST_ACTIONS as $action) {
             $avabilePostActions[$action] = $this->getTypeLabels()->post . " " . $action;
         }
         return apply_filters('WebhooksManager\Options\getPostActions', 
@@ -76,7 +78,7 @@ class Options implements OptionsInterface
      *
      * @return array The available cron actions.
      */
-    private function getCronActions(): array
+    public function getCronActions(): array
     {
         $cron = get_option('cron', []);
         $avabileCronActions = [];
