@@ -1,5 +1,0 @@
-{
-    "redefinable-internals": [
-      "php_sapi_name"
-    ]
-  }

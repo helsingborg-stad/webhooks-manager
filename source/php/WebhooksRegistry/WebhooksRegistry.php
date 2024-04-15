@@ -36,8 +36,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     {
         foreach ($this->webhooksOption as $webhookOption) {
             if ($this->isValidWebhookOption($webhookOption)) {
-
-                if(empty($webhookOption['headers'])) {
+                if (empty($webhookOption['headers'])) {
                     $webhookOption['headers'] = [];
                 }
                 $headers = array_map(fn($row) => $row['header'], $webhookOption['headers']);
