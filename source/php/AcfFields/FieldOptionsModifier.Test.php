@@ -15,7 +15,7 @@ class FieldsModifierTest extends TestCase
         $_GET['page']   = 'webhooks-manager';
         $mockOptions    = $this->getMockOptions();
         $fieldsModifier = new FieldOptionsModifier($mockOptions);
-        $actions        = ['test'];
+        $actions        = ['test' => 'test'];
         $field          = ['choices' => []];
         $mockOptions->method('getActions')->willReturn($actions);
 
