@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhookActionBinder;
 
 use WebhooksManager\Webhook\WebhookInterface;

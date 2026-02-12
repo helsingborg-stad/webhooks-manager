@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\Webhook;
 
 class WebhookTest extends \PHPUnit\Framework\TestCase

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhookDispatcher\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
