@@ -15,12 +15,12 @@ class WebhookDispatcherTest extends TestCase
     {
         WP_Mock::userFunction('wp_remote_get', [
             'times' => 1,
-            'args'  => [
+            'args' => [
                 'https://example.com?foo=bar',
                 [
                     'blocking' => false,
-                    'headers'  => ['header' => 'value']
-                ]
+                    'headers' => ['header' => 'value'],
+                ],
             ],
         ]);
 
@@ -41,19 +41,19 @@ class WebhookDispatcherTest extends TestCase
     public function testDispatchMakesPostRequestIfHttpMethodIsPost()
     {
         $actionArguments = ['foo' => 'bar'];
-        $body            = json_encode($actionArguments);
+        $body = json_encode($actionArguments);
         WP_Mock::userFunction('wp_remote_post', [
             'times' => 1,
-            'args'  => [
+            'args' => [
                 'https://example.com',
                 [
-                    'blocking'    => false,
+                    'blocking' => false,
                     'data_format' => 'body',
-                    'body'        => $body,
-                    'headers'     => ['header' => 'value']
-                    ]
+                    'body' => $body,
+                    'headers' => ['header' => 'value'],
                 ],
-            ]);
+            ],
+        ]);
 
         $urlDecoratorMock = $this->getUrlDecoratorMock();
         $urlDecoratorMock->method('decorateUrlWith')->willReturn('https://example.com');

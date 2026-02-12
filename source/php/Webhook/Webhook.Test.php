@@ -25,7 +25,7 @@ class WebhookTest extends \PHPUnit\Framework\TestCase
 
     public function testHeadersArePreparedForRequest()
     {
-        $headers = [ 'Authorization: Basic 123' ];
+        $headers = ['Authorization: Basic 123'];
         $webhook = new Webhook('https://example.com', 'POST', 'test', 1, true, true, $headers);
 
         $this->assertEquals(['Authorization' => 'Basic 123'], $webhook->getHeaders());

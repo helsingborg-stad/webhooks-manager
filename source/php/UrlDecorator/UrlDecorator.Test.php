@@ -13,7 +13,7 @@ class UrlDecoratorTest extends TestCase
     public function testDecorateUrlWithReplacesSpecifiersWithArguments($url, $arguments, $expected)
     {
         $urlDecorator = new UrlDecorator();
-        $actual       = $urlDecorator->decorateUrlWith($url, $arguments);
+        $actual = $urlDecorator->decorateUrlWith($url, $arguments);
 
         $this->assertEquals($expected, $actual);
     }
@@ -23,14 +23,14 @@ class UrlDecoratorTest extends TestCase
         return [
             ['https://example.com/$1', [1], 'https://example.com/1'],
             ['https://example.com/$1', ['foo'], 'https://example.com/foo'],
-            ['https://example.com/$1/$2', [1, 'foo'], 'https://example.com/1/foo']
+            ['https://example.com/$1/$2', [1, 'foo'], 'https://example.com/1/foo'],
         ];
     }
 
     public function testDecorateUrlWithReturnsUrlWhenArgumentsIsEmptyArray()
     {
         $urlDecorator = new UrlDecorator();
-        $result       = $urlDecorator->decorateUrlWith('https://example.com', []);
+        $result = $urlDecorator->decorateUrlWith('https://example.com', []);
 
         $this->assertEquals('https://example.com', $result);
     }
@@ -38,7 +38,7 @@ class UrlDecoratorTest extends TestCase
     public function testDecorateUrlWithReturnsUrlWhenArgumentsAreNull()
     {
         $urlDecorator = new UrlDecorator();
-        $result       = $urlDecorator->decorateUrlWith('https://example.com', null);
+        $result = $urlDecorator->decorateUrlWith('https://example.com', null);
 
         $this->assertEquals('https://example.com', $result);
     }
@@ -47,7 +47,7 @@ class UrlDecoratorTest extends TestCase
     public function testDecorateUrlWithDoesNotIncludeArgumentsThatAreNotStringsOrNumbers()
     {
         $urlDecorator = new UrlDecorator();
-        $result       = $urlDecorator->decorateUrlWith('https://example.com/$1/$2', [1, 'foo', ['bar']]);
+        $result = $urlDecorator->decorateUrlWith('https://example.com/$1/$2', [1, 'foo', ['bar']]);
 
         $this->assertEquals('https://example.com/1/foo', $result);
     }

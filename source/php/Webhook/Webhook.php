@@ -25,7 +25,7 @@ class Webhook implements WebhookInterface
         private int $actionPriority,
         private bool $shouldSendPayload,
         private bool $isActive,
-        private ?array $headers = null
+        private ?array $headers = null,
     ) {
         $this->headers = $this->setHeaders($headers);
     }
@@ -112,11 +112,11 @@ class Webhook implements WebhookInterface
             return [];
         }
 
-        $validHeaders = array_filter($headers, function ($value) {
+        $validHeaders = array_filter($headers, static function ($value) {
             return is_string($value) && str_contains($value, ':');
         });
 
-        $headerKeyValuePairs = array_map(function ($value) {
+        $headerKeyValuePairs = array_map(static function ($value) {
             [$key, $headerValue] = explode(':', $value, 2);
             return [trim($key) => trim($headerValue)];
         }, $validHeaders);

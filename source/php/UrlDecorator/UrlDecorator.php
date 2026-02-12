@@ -23,7 +23,7 @@ class UrlDecorator implements UrlDecoratorInterface
                 continue;
             }
 
-            $url = str_replace('$' . $key + 1, urlencode($value), $url);
+            $url = str_replace('$' . ($key + 1), urlencode($value), $url);
         }
 
         return $url;
