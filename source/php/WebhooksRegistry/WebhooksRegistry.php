@@ -50,7 +50,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
                 $webhookOption['payload_url'],
                 $webhookOption['http_method'],
                 $webhookOption['action'],
-                $webhookOption['action_priority'],
+                (int) $webhookOption['action_priority'],
                 $webhookOption['should_send_payload'],
                 $webhookOption['is_active'],
                 $headers,
