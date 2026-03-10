@@ -25,7 +25,7 @@ class FieldsModifierTest extends TestCase
         $modifiedField = $fieldsModifier->getActionFieldOptions($field);
 
         // Then
-        $this->assertEquals(['test' => 'test'], $modifiedField['choices']);
+        $this->assertEquals(['test'], $modifiedField['choices']);
     }
 
     public function testHttpMethodFieldGetsPopulatedByMethodsFromOptions()
