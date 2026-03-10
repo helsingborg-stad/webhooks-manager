@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhooksRegistry;
 
 /**
@@ -35,23 +37,24 @@ class WebhooksRegistry implements WebhooksRegistryInterface
     private function registerWebhooksFromOptions(): void
     {
         foreach ($this->webhooksOption as $webhookOption) {
-            if ($this->isValidWebhookOption($webhookOption)) {
-
-                if(empty($webhookOption['headers'])) {
-                    $webhookOption['headers'] = [];
-                }
-                $headers = array_map(fn($row) => $row['header'], $webhookOption['headers']);
-
-                $this->webhooks[] = new \WebhooksManager\Webhook\Webhook(
-                    $webhookOption['payload_url'],
-                    $webhookOption['http_method'],
-                    $webhookOption['action'],
-                    $webhookOption['action_priority'],
-                    $webhookOption['should_send_payload'],
-                    $webhookOption['is_active'],
-                    $headers
-                );
+            if (!$this->isValidWebhookOption($webhookOption)) {
+                continue;
             }
+
+            if (empty($webhookOption['headers'])) {
+                $webhookOption['headers'] = [];
+            }
+            $headers = array_map(static fn($row) => $row['header'], $webhookOption['headers']);
+
+            $this->webhooks[] = new \WebhooksManager\Webhook\Webhook(
+                $webhookOption['payload_url'],
+                $webhookOption['http_method'],
+                $webhookOption['action'],
+                (int) $webhookOption['action_priority'],
+                $webhookOption['should_send_payload'],
+                $webhookOption['is_active'],
+                $headers,
+            );
         }
     }
 
@@ -63,13 +66,7 @@ class WebhooksRegistry implements WebhooksRegistryInterface
      */
     private function isValidWebhookOption($webhookOption): bool
     {
-        return isset($webhookOption['payload_url'])
-            && isset($webhookOption['http_method'])
-            && isset($webhookOption['action'])
-            && isset($webhookOption['action_priority'])
-            && isset($webhookOption['should_send_payload'])
-            && isset($webhookOption['is_active'])
-            && isset($webhookOption['headers']);
+        return isset($webhookOption['payload_url'], $webhookOption['http_method'], $webhookOption['action'], $webhookOption['action_priority'], $webhookOption['should_send_payload'], $webhookOption['is_active'], $webhookOption['headers']);
     }
 
     /**

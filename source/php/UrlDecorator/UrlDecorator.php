@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\UrlDecorator;
 
 class UrlDecorator implements UrlDecoratorInterface
@@ -23,7 +25,7 @@ class UrlDecorator implements UrlDecoratorInterface
                 continue;
             }
 
-            $url = str_replace('$' . $key + 1, urlencode($value), $url);
+            $url = str_replace('$' . ($key + 1), urlencode((string) $value), $url);
         }
 
         return $url;

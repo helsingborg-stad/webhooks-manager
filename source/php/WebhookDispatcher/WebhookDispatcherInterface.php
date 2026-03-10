@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhookDispatcher;
 
 use WebhooksManager\Webhook\WebhookInterface;

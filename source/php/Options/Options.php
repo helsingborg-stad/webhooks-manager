@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\Options;
 
 use stdClass;
@@ -38,10 +40,9 @@ class Options implements OptionsInterface
     public function getActions(): array
     {
         return apply_filters('WebhooksManager\Options\getActions', array_merge(
-                $this->getPostActions(),
-                $this->getCronActions()
-            )
-        );
+            $this->getPostActions(),
+            $this->getCronActions(),
+        ));
     }
 
     /**
@@ -52,8 +53,8 @@ class Options implements OptionsInterface
     public function getTypeLabels(): object
     {
         $typeLabels = new stdClass();
-        $typeLabels->cron = __("Cron:");
-        $typeLabels->post = __("Post:");
+        $typeLabels->cron = __('Cron:');
+        $typeLabels->post = __('Post:');
         return $typeLabels;
     }
 
@@ -64,13 +65,11 @@ class Options implements OptionsInterface
      */
     public function getPostActions(): array
     {
-        $avabilePostActions = []; 
-        foreach(self::DEFAULT_POST_ACTIONS as $action) {
-            $avabilePostActions[$action] = $this->getTypeLabels()->post . " " . $action;
+        $avabilePostActions = [];
+        foreach (self::DEFAULT_POST_ACTIONS as $action) {
+            $avabilePostActions[$action] = $this->getTypeLabels()->post . ' ' . $action;
         }
-        return apply_filters('WebhooksManager\Options\getPostActions', 
-            $avabilePostActions
-        );
+        return apply_filters('WebhooksManager\Options\getPostActions', $avabilePostActions);
     }
 
     /**
@@ -83,22 +82,20 @@ class Options implements OptionsInterface
         $cron = get_option('cron', []);
         $avabileCronActions = [];
 
-        if(!empty($cron) && is_countable($cron)) {
+        if (!empty($cron) && is_countable($cron)) {
             foreach ($cron as $value) {
-                if(!is_countable($value)) {
+                if (!is_countable($value)) {
                     continue;
                 }
-                foreach($value as $action => $cronItem) {
+                foreach ($value as $action => $cronItem) {
                     $cronItem = array_pop($cronItem);
-                    if($cronItem['schedule'] !== false) {
-                        $avabileCronActions[$action] = $this->getTypeLabels()->cron . " " . $action;
+                    if ($cronItem['schedule'] !== false) {
+                        $avabileCronActions[$action] = $this->getTypeLabels()->cron . ' ' . $action;
                     }
                 }
             }
         }
 
-        return apply_filters('WebhooksManager\Options\getCronActions', 
-            $avabileCronActions
-        );
+        return apply_filters('WebhooksManager\Options\getCronActions', $avabileCronActions);
     }
 }

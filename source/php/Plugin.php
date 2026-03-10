@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager;
 
 use WebhooksManager\AcfFields\FieldOptionsModifier;
-use WebhooksManager\WebhookActionBinder\WebhookActionBinder;
-use WebhooksManager\WebhookDispatcher\WebhookDispatcher;
 use WebhooksManager\Options\Options;
 use WebhooksManager\UrlDecorator\UrlDecorator;
+use WebhooksManager\WebhookActionBinder\WebhookActionBinder;
+use WebhooksManager\WebhookDispatcher\WebhookDispatcher;
 use WebhooksManager\WebhooksRegistry\WebhooksRegistry;
 
 /**
@@ -22,10 +24,10 @@ class Plugin
      */
     public function initialize()
     {
-        $options                 = new Options();
-        $settingsPage            = new SettingsPage();
+        $options = new Options();
+        $settingsPage = new SettingsPage();
         $acfFieldOptionsModifier = new FieldOptionsModifier($options);
-        $webhooksRegistry        = new WebhooksRegistry();
+        $webhooksRegistry = new WebhooksRegistry();
 
         // Add settings page on plugin initialization
         add_action('init', [$settingsPage, 'addPage']);
@@ -38,13 +40,17 @@ class Plugin
         add_filter('acf/load_field/name=http_method', [$acfFieldOptionsModifier, 'getHttpMethodFieldOptions']);
 
         // Bind webhooks to actions on plugins loaded
-        add_action('plugins_loaded', function () use ($webhooksRegistry) {
-            foreach ($webhooksRegistry->getWebhooks() as $webhook) {
-                $urlDecorator        = new UrlDecorator();
-                $dispatcher          = new WebhookDispatcher($urlDecorator);
-                $webhookActionBinder = new WebhookActionBinder($webhook, $dispatcher);
-                $webhookActionBinder->bindWebhookToAction();
-            }
-        }, 20);
+        add_action(
+            'plugins_loaded',
+            static function () use ($webhooksRegistry) {
+                foreach ($webhooksRegistry->getWebhooks() as $webhook) {
+                    $urlDecorator = new UrlDecorator();
+                    $dispatcher = new WebhookDispatcher($urlDecorator);
+                    $webhookActionBinder = new WebhookActionBinder($webhook, $dispatcher);
+                    $webhookActionBinder->bindWebhookToAction();
+                }
+            },
+            20,
+        );
     }
 }

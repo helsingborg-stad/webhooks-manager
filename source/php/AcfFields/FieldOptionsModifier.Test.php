@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\AcfFields\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -12,28 +14,28 @@ class FieldsModifierTest extends TestCase
     public function testActionsFieldGetsPopulatedByActionsFromOptions()
     {
         // Given
-        $_GET['page']   = 'webhooks-manager';
-        $mockOptions    = $this->getMockOptions();
+        $_GET['page'] = 'webhooks-manager';
+        $mockOptions = $this->getMockOptions();
         $fieldsModifier = new FieldOptionsModifier($mockOptions);
-        $actions        = ['test'];
-        $field          = ['choices' => []];
+        $actions = ['test'];
+        $field = ['choices' => []];
         $mockOptions->method('getActions')->willReturn($actions);
 
         // When
         $modifiedField = $fieldsModifier->getActionFieldOptions($field);
 
         // Then
-        $this->assertEquals(['test' => 'test'], $modifiedField['choices']);
+        $this->assertEquals(['test'], $modifiedField['choices']);
     }
 
     public function testHttpMethodFieldGetsPopulatedByMethodsFromOptions()
     {
         // Given
-        $_GET['page']   = 'webhooks-manager';
-        $mockOptions    = $this->getMockOptions();
+        $_GET['page'] = 'webhooks-manager';
+        $mockOptions = $this->getMockOptions();
         $fieldsModifier = new FieldOptionsModifier($mockOptions);
-        $methods        = ['test'];
-        $field          = ['choices' => []];
+        $methods = ['test'];
+        $field = ['choices' => []];
         $mockOptions->method('getHttpMethods')->willReturn($methods);
 
         // When

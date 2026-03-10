@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhookActionBinder\Test;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -15,10 +17,10 @@ class WebhookActionBinderTest extends TestCase
     {
         // Given
         $actionName = 'test_action';
-        $webhook    = $this->getWebhookMock();
+        $webhook = $this->getWebhookMock();
         $webhook->method('getAction')->willReturn($actionName);
         $webhook->method('getActionPriority')->willReturn(10);
-        $webhookDispatcher   = $this->getWebhookDispatcherMock();
+        $webhookDispatcher = $this->getWebhookDispatcherMock();
         $webhookActionBinder = new WebhookActionBinder($webhook, $webhookDispatcher);
         WP_Mock::expectActionAdded($actionName, [$webhookActionBinder, 'actionCallback'], 10, 100);
 
@@ -35,7 +37,7 @@ class WebhookActionBinderTest extends TestCase
         $webhook = $this->getWebhookMock();
         $webhook->method('getAction')->willReturn('test_action');
         $webhook->method('isActive')->willReturn(true);
-        $webhookDispatcher   = $this->getWebhookDispatcherMock();
+        $webhookDispatcher = $this->getWebhookDispatcherMock();
         $webhookActionBinder = new WebhookActionBinder($webhook, $webhookDispatcher);
         $webhookDispatcher->expects($this->once())->method('dispatch')->with($webhook, [['test' => 'test']]);
 
@@ -52,7 +54,7 @@ class WebhookActionBinderTest extends TestCase
         $webhook = $this->getWebhookMock();
         $webhook->method('getAction')->willReturn('test_action');
         $webhook->method('isActive')->willReturn(false);
-        $webhookDispatcher   = $this->getWebhookDispatcherMock();
+        $webhookDispatcher = $this->getWebhookDispatcherMock();
         $webhookActionBinder = new WebhookActionBinder($webhook, $webhookDispatcher);
         $webhookDispatcher->expects($this->never())->method('dispatch');
 

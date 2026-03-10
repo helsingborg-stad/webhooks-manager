@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhookDispatcher;
 
 use WebhooksManager\UrlDecorator\UrlDecoratorInterface;
@@ -12,9 +14,9 @@ use WebhooksManager\Webhook\WebhookInterface;
  */
 class WebhookDispatcher implements WebhookDispatcherInterface
 {
-    public function __construct(private UrlDecoratorInterface $urlDecorator)
-    {
-    }
+    public function __construct(
+        private UrlDecoratorInterface $urlDecorator,
+    ) {}
 
     /**
      * Dispatches the given webhook by sending an HTTP request.
@@ -51,7 +53,7 @@ class WebhookDispatcher implements WebhookDispatcherInterface
 
         wp_remote_get($url, [
             'blocking' => false,
-            'headers'  => $webhook->getHeaders()
+            'headers' => $webhook->getHeaders(),
         ]);
     }
 
@@ -64,14 +66,14 @@ class WebhookDispatcher implements WebhookDispatcherInterface
      */
     private function dispatchPostRequest(WebhookInterface $webhook, $payload)
     {
-        $url           = $this->urlDecorator->decorateUrlWith($webhook->getPayloadUrl(), $payload);
+        $url = $this->urlDecorator->decorateUrlWith($webhook->getPayloadUrl(), $payload);
         $bodyArguments = is_array($payload) ? ['body' => json_encode($payload)] : [];
 
         wp_remote_post($url, [
             'data_format' => 'body',
-            'blocking'    => false,
-            'headers'     => $webhook->getHeaders(),
-            ...$bodyArguments
+            'blocking' => false,
+            'headers' => $webhook->getHeaders(),
+            ...$bodyArguments,
         ]);
     }
 }

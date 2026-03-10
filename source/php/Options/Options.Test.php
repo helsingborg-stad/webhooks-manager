@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\Options\Test;
 
 use WebhooksManager\Options\Options;
@@ -10,7 +12,7 @@ class OptionsTest extends TestCase
 {
     public function testGetHttpMethodsContainsExpectedMethods()
     {
-        $options     = new Options();
+        $options = new Options();
         $httpMethods = $options->getHttpMethods();
         $this->assertIsArray($httpMethods);
         $this->assertContains('GET', $httpMethods);
@@ -28,21 +30,20 @@ class OptionsTest extends TestCase
     public function testGetPostActionsReturnsDefaultActions()
     {
         $options = new Options();
-        $this->assertArrayHasKey('post_updated', $options->getPostActions()); 
+        $this->assertArrayHasKey('post_updated', $options->getPostActions());
         $this->assertArrayHasKey('post_created', $options->getPostActions());
         $this->assertArrayHasKey('post_deleted', $options->getPostActions());
     }
 
     //TODO: Fix failing test.
     /*public function testGetActionsReturnsArrayAppliesFilterForModifyingResult()
-    {
-        WP_Mock::onFilter('WebhooksManager\Options\getPostActions')
-            ->with([])
-            ->reply(['testkey'=> 'test']);
-        $options = new Options();
-        $this->assertArrayHasKey('testkey', $options->getPostActions());
-    }*/ 
-
+     * {
+     * WP_Mock::onFilter('WebhooksManager\Options\getPostActions')
+     * ->with([])
+     * ->reply(['testkey'=> 'test']);
+     * $options = new Options();
+     * $this->assertArrayHasKey('testkey', $options->getPostActions());
+     * }*/
 
     public function testGetTypeLabelsReturnsExpectedLabels()
     {

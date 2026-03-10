@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebhooksManager\WebhooksRegistry\Test;
 
 use WP_Mock;
@@ -11,14 +13,14 @@ class WebhooksRegistryTest extends TestCase
     {
         WP_Mock::userFunction('get_field')->andReturn([
             [
-                'payload_url'         => 'https://example.com',
-                'http_method'         => 'GET',
-                'action'              => 'my_action',
-                'action_priority'     => 10,
+                'payload_url' => 'https://example.com',
+                'http_method' => 'GET',
+                'action' => 'my_action',
+                'action_priority' => 10,
                 'should_send_payload' => true,
-                'is_active'           => true,
-                'headers'             => [['header' => 'Content-Type: application/json']]
-            ]
+                'is_active' => true,
+                'headers' => [['header' => 'Content-Type: application/json']],
+            ],
         ]);
 
         $webhooksRegistry = new \WebhooksManager\WebhooksRegistry\WebhooksRegistry();
