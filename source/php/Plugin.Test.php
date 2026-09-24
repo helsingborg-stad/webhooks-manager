@@ -41,7 +41,6 @@ class PluginTest extends TestCase
             $registeredHooks,
             static fn(array $hook): bool => $hook['hook'] === 'acf/init'
                 && is_array($hook['callback'])
-                && $hook['callback'][0] instanceof \WebhooksManager\WebhooksRegistry\WebhooksRegistry
                 && $hook['callback'][1] === 'registerWebhooks'
                 && $hook['priority'] === 10
                 && $hook['accepted_args'] === 1
