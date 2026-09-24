@@ -32,16 +32,16 @@ class Plugin
         // Add settings page on plugin initialization
         add_action('init', [$settingsPage, 'addPage']);
 
-        // Register webhooks on plugins loaded
-        add_action('plugins_loaded', [$webhooksRegistry, 'registerWebhooks'], 10);
+        // Register webhooks when ACF is initialized
+        add_action('acf/init', [$webhooksRegistry, 'registerWebhooks'], 10);
 
         // Modify ACF field options for 'action' and 'http_method' fields
         add_filter('acf/load_field/name=action', [$acfFieldOptionsModifier, 'getActionFieldOptions']);
         add_filter('acf/load_field/name=http_method', [$acfFieldOptionsModifier, 'getHttpMethodFieldOptions']);
 
-        // Bind webhooks to actions on plugins loaded
+        // Bind webhooks to actions after ACF has initialized the webhook registry
         add_action(
-            'plugins_loaded',
+            'init',
             static function () use ($webhooksRegistry) {
                 foreach ($webhooksRegistry->getWebhooks() as $webhook) {
                     $urlDecorator = new UrlDecorator();
@@ -50,7 +50,7 @@ class Plugin
                     $webhookActionBinder->bindWebhookToAction();
                 }
             },
-            20,
+            6,
         );
     }
 }
