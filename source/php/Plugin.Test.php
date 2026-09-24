@@ -65,18 +65,13 @@ namespace WebhooksManager\Test {
 
             $this->assertCount(1, $registerWebhookCallbacks);
 
-            $acfInitBindings = array_values(array_filter(
-                PluginHookRecorder::$registeredActions,
-                static fn(array $hook): bool => $hook['hook'] === 'acf/init'
-            ));
-
-            $this->assertCount(2, $acfInitBindings);
             $this->assertCount(
                 1,
                 array_values(array_filter(
-                    $acfInitBindings,
-                    static fn(array $hook): bool => $hook['callback'] instanceof \Closure
-                        && $hook['priority'] === 20
+                    PluginHookRecorder::$registeredActions,
+                    static fn(array $hook): bool => $hook['hook'] === 'init'
+                        && $hook['callback'] instanceof \Closure
+                        && $hook['priority'] === 6
                         && $hook['accepted_args'] === 1
                 ))
             );

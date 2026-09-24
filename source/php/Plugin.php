@@ -39,9 +39,9 @@ class Plugin
         add_filter('acf/load_field/name=action', [$acfFieldOptionsModifier, 'getActionFieldOptions']);
         add_filter('acf/load_field/name=http_method', [$acfFieldOptionsModifier, 'getHttpMethodFieldOptions']);
 
-        // Bind webhooks to actions when ACF is initialized
+        // Bind webhooks to actions after ACF has initialized the webhook registry
         add_action(
-            'acf/init',
+            'init',
             static function () use ($webhooksRegistry) {
                 foreach ($webhooksRegistry->getWebhooks() as $webhook) {
                     $urlDecorator = new UrlDecorator();
@@ -50,7 +50,7 @@ class Plugin
                     $webhookActionBinder->bindWebhookToAction();
                 }
             },
-            20,
+            6,
         );
     }
 }
