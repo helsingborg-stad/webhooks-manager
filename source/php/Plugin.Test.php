@@ -71,6 +71,15 @@ namespace WebhooksManager\Test {
             ));
 
             $this->assertCount(2, $acfInitBindings);
+            $this->assertCount(
+                1,
+                array_values(array_filter(
+                    $acfInitBindings,
+                    static fn(array $hook): bool => $hook['callback'] instanceof \Closure
+                        && $hook['priority'] === 20
+                        && $hook['accepted_args'] === 1
+                ))
+            );
             $this->assertNotContains(
                 'plugins_loaded',
                 array_column(PluginHookRecorder::$registeredActions, 'hook')
