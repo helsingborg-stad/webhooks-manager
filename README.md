@@ -4,7 +4,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![License][license-shield]][license-url]
-![PHP Version](https://img.shields.io/badge/PHP->=8.1-blue)
+![PHP Version](https://img.shields.io/badge/PHP->=8.2-blue)
 ![Unit Tests](https://github.com/helsingborg-stad/webhooks-manager/actions/workflows/php-test.yaml/badge.svg)
 
 
@@ -22,6 +22,8 @@
 
 * PHP
 * WordPress
+
+The locked wpservice 3.0.0 dependency supports PHP 8.2 through 8.5.
 
 ## Getting Started
 
